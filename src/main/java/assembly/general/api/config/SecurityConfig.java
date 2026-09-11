@@ -55,9 +55,11 @@ public class SecurityConfig {
                 .requestMatchers("/api/catalog/**").permitAll()
                 // H2 console (dev)
                 .requestMatchers("/h2-console/**").permitAll()
-                // Swagger / OpenAPI
-                .requestMatchers("/swagger-ui/**", "/swagger-ui.html",
-                        "/v3/api-docs/**", "/api-docs/**").permitAll()
+                // Swagger / OpenAPI — include both root and sub-paths
+                .requestMatchers(
+                        "/swagger-ui/**", "/swagger-ui.html", "/webjars/**",
+                        "/v3/api-docs", "/v3/api-docs/**",
+                        "/api-docs", "/api-docs/**").permitAll()
                 // Actuator health
                 .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                 // Everything else requires authentication
