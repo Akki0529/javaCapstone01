@@ -162,7 +162,9 @@ class ReservationIntegrationTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.totalActive").value(1))
             .andExpect(jsonPath("$.reservations[0].status").value("RESERVED"))
-            .andExpect(jsonPath("$.reservations[0].daysUntilExpiry").value(7));
+            // expiresAt = now + 7 days; ChronoUnit.DAYS truncates to full days, so 6 or 7 depending on milliseconds
+            .andExpect(jsonPath("$.reservations[0].daysUntilExpiry",
+                org.hamcrest.Matchers.greaterThanOrEqualTo(6)));
     }
 
     // ---- Full lifecycle: reserve → checkout → return ----

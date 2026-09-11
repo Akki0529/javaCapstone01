@@ -133,6 +133,20 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<!-- Explicitly wire Lombok annotation processor so Java 21 picks it up -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

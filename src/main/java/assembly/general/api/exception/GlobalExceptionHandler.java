@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -77,6 +78,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ReservationNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleReservationNotFound(ReservationNotFoundException ex) {
         return error(HttpStatus.NOT_FOUND, "NOT_FOUND", ex.getMessage());
+    }
+
+    // --- Forbidden (403) — from @PreAuthorize method security ---
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Map<String, Object>> handleAccessDenied(AccessDeniedException ex) {
+        return error(HttpStatus.FORBIDDEN, "FORBIDDEN", "You do not have permission to access this resource");
     }
 
     // --- Internal (500) ---
