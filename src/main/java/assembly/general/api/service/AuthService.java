@@ -37,8 +37,8 @@ public class AuthService {
     }
 
     /**
-     * Register a new user. Assigns PATRON role and ACTIVE status by default.
-     * Throws EmailAlreadyExistsException if the email is taken.
+     * Register a new user.  Assigns PATRONrole and ACTIVE status by default.
+     * throws the  EmailAlreadyExistsException if the email si already taken
      */
     @Transactional
     public RegisterResponse register(RegisterRequest request) {
@@ -74,7 +74,8 @@ public class AuthService {
     /**
      * Authenticate a user. Returns a JWT token on success.
      * Throws InvalidCredentialsException on failure (email not found or wrong password).
-     * Does not reveal which check failed — per US-002.
+     * Does not reveal which if a check is failed as per the spec
+     *
      */
     @Transactional(readOnly = true)
     public LoginResponse login(LoginRequest request) {

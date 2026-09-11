@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/catalog/**").permitAll()
                 // H2 console (dev)
                 .requestMatchers("/h2-console/**").permitAll()
-                // Swagger / OpenAPI — include both root and sub-paths
+                // Swagger / OpenAPI added both root and sub paths
                 .requestMatchers(
                         "/swagger-ui/**", "/swagger-ui.html", "/webjars/**",
                         "/v3/api-docs", "/v3/api-docs/**",
@@ -65,7 +65,7 @@ public class SecurityConfig {
                 // Everything else requires authentication
                 .anyRequest().authenticated()
             )
-            // Custom 401 response — returns JSON instead of default redirect
+            // 4011 responseit returns JSON instead of default redirect
             .exceptionHandling(ex -> ex
                 .authenticationEntryPoint((request, response, authException) -> {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

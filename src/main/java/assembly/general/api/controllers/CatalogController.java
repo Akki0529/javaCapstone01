@@ -25,7 +25,7 @@ public class CatalogController {
 
     /**
      * GET /api/catalog/books — public
-     * Supports pagination, sorting, full-text search (query), genre, isbn, availableOnly filters.
+     * Does the  pagination, sorting, full-text search (query), genre, isbn, availableOnly filters.
      */
     @GetMapping("/books")
     @Operation(summary = "Browse and search the book catalog with pagination")
