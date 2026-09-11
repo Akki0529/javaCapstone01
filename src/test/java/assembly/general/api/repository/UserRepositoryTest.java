@@ -1,5 +1,6 @@
 package assembly.general.api.repository;
 
+import assembly.general.api.config.JpaConfig;
 import assembly.general.api.entity.User;
 import assembly.general.api.enums.MembershipStatus;
 import assembly.general.api.enums.Role;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.time.Instant;
@@ -15,7 +17,10 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+// @Import(JpaConfig.class) loads @EnableJpaAuditing so @CreatedDate / @LastModifiedDate
+// are populated — @DataJpaTest is a slice that excludes @Configuration beans by default.
 @DataJpaTest
+@Import(JpaConfig.class)
 class UserRepositoryTest {
 
     @Autowired

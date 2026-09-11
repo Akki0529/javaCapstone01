@@ -1,11 +1,13 @@
 package assembly.general.api.repository;
 
+import assembly.general.api.config.JpaConfig;
 import assembly.general.api.entity.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -14,7 +16,10 @@ import org.springframework.data.jpa.domain.Specification;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+// @Import(JpaConfig.class) loads @EnableJpaAuditing so @CreatedDate / @LastModifiedDate
+// are populated — @DataJpaTest is a slice that excludes @Configuration beans by default.
 @DataJpaTest
+@Import(JpaConfig.class)
 class BookRepositoryTest {
 
     @Autowired
